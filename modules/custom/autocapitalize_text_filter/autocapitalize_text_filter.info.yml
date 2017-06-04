@@ -1,0 +1,6 @@
+name: Autocapitalize
+description: Custom Filter for Autocapitilze.
+package: Custom
+
+type: module
+core: 8.x
