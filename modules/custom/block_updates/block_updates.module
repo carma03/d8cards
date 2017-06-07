@@ -26,7 +26,7 @@ function block_updates_cron() {
       $data = [];
       $client = \Drupal::httpClient();
       try {
-        $url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=' . $blockSymbol . '&callback=myFunction';
+        $url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=' . $blockSymbol . '&callback=myFunction';
         $response = $client->get($url, [
                                  'headers' => [
                                                 'Accept' => 'text/plain'
@@ -35,11 +35,6 @@ function block_updates_cron() {
         $data = (string)$response->getBody();
 
         if (!empty($data)) {
-          $data = str_replace('myFunction(', '', $data);
-          if (substr($data, -1) == ')') {
-            $lastChar = strlen($data) -1;
-            $data     = substr($data, 0, $lastChar);
-          }
           $data = json_decode($data, TRUE);
         }
       } catch (RequestException $e) {
@@ -50,7 +45,7 @@ function block_updates_cron() {
         $lastPrice = (isset($data['LastPrice'])) ? $data['LastPrice'] : '';
         $change    = (isset($data['Change'])) ? $data['Change'] : '';
 
-        $block->set('field_last_price', $lastPrice) ;
+        $block->set('field_last_price', $lastPrice);
         $block->set('field_change', $change);
         $block->save();
       }
