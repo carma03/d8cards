@@ -1,0 +1,9 @@
+name: Block Updates
+description: Demonstrates how updates custom blocks fields after Cron runs.
+package: Custom
+configure: block_updates.admin_settings
+
+type: module
+core: 8.x
+dependencies:
+  - drupal:block
