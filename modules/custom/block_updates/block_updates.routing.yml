@@ -1,0 +1,7 @@
+block_updates.admin_settings:
+  path: '/admin/structure/block_updates'
+  defaults:
+    _form: '\Drupal\block_updates\Form\ModuleConfigurationForm'
+    _title: 'Block Updates Configurations'
+  requirements:
+    _permission: 'administer site configuration'

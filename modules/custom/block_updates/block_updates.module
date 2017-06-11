@@ -11,31 +11,29 @@ use Drupal\block_content\Entity\BlockContent;
  * Implements hook_cron().
  */
 function block_updates_cron() {
-  $query = \Drupal::entityQuery('block_content')
-    ->condition('type', 'stock_exchange_rate_card');
+  $blocks = \Drupal::entityTypemanager()
+    ->getStorage('block_content')
+    ->loadByProperties(['type' => 'stock_exchange_rate_card']);
 
-  // get all block's ids of type stock_exchange_rate_card
-  $blocks_ids = $query->execute();
-
-  if (is_array($blocks_ids) && sizeof($blocks_ids) > 0) {
-    foreach ($blocks_ids as $bid) {
-      $block       = BlockContent::load($bid);
+  // ensure that block type 'stock_exchange_rate_card' exists and has blocks
+  if (is_array($blocks) && sizeof($blocks) > 0) {
+    foreach ($blocks as $block_id => $block) {
       $blockSymbol = $block->get('field_symbol')->getString();
 
-      // makes httprequest using Guzzle, sending the current block symbol
+      // makes httpRequest using Guzzle, sending the current block symbol
       $data = [];
       $client = \Drupal::httpClient();
       try {
-        $url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=' . $blockSymbol . '&callback=myFunction';
-        $response = $client->get($url, [
-                                 'headers' => [
-                                                'Accept' => 'text/plain'
-                                             ]
-                                 ]);
-        $data = (string)$response->getBody();
-
-        if (!empty($data)) {
-          $data = json_decode($data, TRUE);
+        $url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=' . $blockSymbol;
+        $response = $client->get($url, ['headers' => ['Accept' => 'text/plain']]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode == '200') {
+          $data = (string)$response->getBody();
+          if (!empty($data)) {
+            $data = json_decode($data, TRUE);
+          }
+        }else {
+          drupal_set_message(t('An error occurred and while getting information from API.'), 'warning');
         }
       } catch (RequestException $e) {
         watchdog_exception('block_updates', $e->getMessage());
@@ -51,5 +49,4 @@ function block_updates_cron() {
       }
     }
   }
-
 }
