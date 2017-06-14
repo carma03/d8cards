@@ -1,0 +1,8 @@
+name: Attaching Asssets
+description: Custom Modules for attache CSS and JS files.
+package: Custom
+dependencies:
+  - block
+
+type: module
+core: 8.x

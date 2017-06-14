@@ -1,0 +1,10 @@
+custom_tables:
+  version: 1.x
+  css:
+    theme:
+      css/custom-tables-theme.css: {}
+custom_blocks:
+  js:
+    js/custom-blocks.js: {}
+  dependencies:
+    - core/jquery
