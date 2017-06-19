@@ -24,7 +24,10 @@ function block_updates_cron() {
       $data = [];
       $client = \Drupal::httpClient();
       try {
-        $url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=' . $blockSymbol;
+        //$url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=' . $blockSymbol;
+        $settings = \Drupal::config('block_updates.settings');
+        $url = $settings->get('stock_api_url') . $blockSymbol;
+
         $response = $client->get($url, ['headers' => ['Accept' => 'text/plain']]);
         $statusCode = $response->getStatusCode();
         if ($statusCode == '200') {
@@ -40,8 +43,8 @@ function block_updates_cron() {
       }
 
       if (sizeof($data) > 0) {
-        $lastPrice = (isset($data['LastPrice'])) ? $data['LastPrice'] : '';
-        $change    = (isset($data['Change'])) ? $data['Change'] : '';
+        $lastPrice = (isset($data['LastPrice'])) ? $data['LastPrice'] : 'N/A';
+        $change    = (isset($data['Change'])) ? $data['Change'] : 'N/A';
 
         $block->set('field_last_price', $lastPrice);
         $block->set('field_change', $change);

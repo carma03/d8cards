@@ -38,11 +38,31 @@ class ModuleConfigurationForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('block_updates.settings');
 
-    $form['reset'] = [
+    $form['config_fieldset'] = [
+      '#type'  => 'details',
+      '#title' => t('Block Updates Configurations'),
+      '#open'  => TRUE,
+    ];
+
+    $form['config_fieldset']['stock_api_url'] = [
+      '#type'          => 'textfield',
+      '#title'         => $this->t('Type the URL of the Stock API'),
+      '#default_value' => ($config->get('stock_api_url') !== NULL) ? $config->get('stock_api_url') : '',
+      '#description'   => t('original:') . ' http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=AAPL',
+      '#required'      => TRUE
+    ];
+
+    $form['reset_fieldset'] = [
+      '#type'  => 'details',
+      '#title' => t('Reset Block Updates Fields'),
+      '#open'  => FALSE,
+    ];
+
+    $form['reset_fieldset']['reset'] = [
       '#type'          => 'checkbox',
-      '#title'         => $this->t('Reset Stock Exchange Rate Card Block'),
+      '#title'         => $this->t('Reset'),
       '#default_value' => 0,
-      //'#default_value' => ($config->get('reset') !== NULL) ? $config->get('reset') : 0,
+      '#description'   => t('Set empty values to Last Price and Change fields.'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -78,11 +98,9 @@ class ModuleConfigurationForm extends ConfigFormBase {
     }
 
     // for save form configurations
-    /*
     $this->config('block_updates.settings')
-      ->set('reset', $form_state->getValue('reset'))
+      ->set('stock_api_url', $form_state->getValue('stock_api_url'))
       ->save();
-    */
   }
 
 }

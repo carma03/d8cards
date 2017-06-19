@@ -1,0 +1,59 @@
+@-webkit-keyframes colorchange {
+  0%    { color: red; }
+  12.5% { color: orange; }
+  25%   { color: yellow; }
+  37.5% { color: green; }
+  50%   { color: lightblue; }
+  62.5% { color: blue; }
+  75%   { color: purple; }
+  87.5% { color: white; }
+  100%  { color: gray; }
+}
+
+@-moz-keyframes colorchange {
+  0%    { color: red; }
+  12.5% { color: orange; }
+  25%   { color: yellow; }
+  37.5% { color: green; }
+  50%   { color: lightblue; }
+  62.5% { color: blue; }
+  75%   { color: purple; }
+  87.5% { color: white; }
+  100%  { color: gray; }
+}
+
+@-o-keyframes colorchange {
+  0%    { color: red; }
+  12.5% { color: orange; }
+  25%   { color: yellow; }
+  37.5% { color: green; }
+  50%   { color: lightblue; }
+  62.5% { color: blue; }
+  75%   { color: purple; }
+  87.5% { color: white; }
+  100%  { color: gray; }
+}
+
+@keyframes colorchange {
+  0%    { color: red; }
+  12.5% { color: orange; }
+  25%   { color: yellow; }
+  37.5% { color: green; }
+  50%   { color: lightblue; }
+  62.5% { color: blue; }
+  75%   { color: purple; }
+  87.5% { color: white; }
+  100%  { color: gray; }
+}
+
+.change-colors {
+  color: black;
+  -webkit-animation: colorchange 10s infinite alternate;
+  -webkit-animation: colorchange 10s infinite alternate; /* Safari 4+ */
+  -moz-animation:    colorchange 10s infinite alternate; /* Fx 5+ */
+  -o-animation:      colorchange 10s infinite alternate; /* Opera 12+ */
+  animation:         colorchange 10s infinite alternate; /* IE 10+, Fx 29+ */
+}
+
+
+
