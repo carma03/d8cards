@@ -1,13 +1,17 @@
 // We define a function that takes one parameter named $.
 (function ($) {
   // Use jQuery with the shortcut:
-  console.log($.browser);
-  alert('hello');
+  Drupal.behaviors.attaching_assets_customBlocks = {
+    attach: function (context, settings) {
+      if (context == $(document)[0]) {
+        $blocks = $('.block-block-content h2');
 
-  Drupal.behaviors.attaching_assetsCustomBlocks = function (context) {
-    console.log($.browser);
-    alert('hello');
-  }
+        $blocks.each(function() {
+          $(this).addClass('change-colors');
+        });
+      }
+    }
+  };
 
 
 // Here we immediately call the function with jQuery as the parameter.

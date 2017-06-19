@@ -4,6 +4,9 @@ custom_tables:
     theme:
       css/custom-tables-theme.css: {}
 custom_blocks:
+  css:
+    theme:
+      css/custom-blocks.css: {}
   js:
     js/custom-blocks.js: {}
   dependencies:
