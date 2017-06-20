@@ -43,12 +43,25 @@ function block_updates_cron() {
       }
 
       if (sizeof($data) > 0) {
-        $lastPrice = (isset($data['LastPrice'])) ? $data['LastPrice'] : 'N/A';
-        $change    = (isset($data['Change'])) ? $data['Change'] : 'N/A';
+        $fieldValues = [];
+        $fieldValues['field_last_price'] = (isset($data['LastPrice'])) ? $data['LastPrice'] : 'N/A';
+        $fieldValues['field_change']     = (isset($data['Change'])) ? $data['Change'] : 'N/A';
 
-        $block->set('field_last_price', $lastPrice);
-        $block->set('field_change', $change);
-        $block->save();
+        // get fields to update from setting checkboxes
+        $fieldsToUpdate = $settings->get('fields_to_update');
+
+        if(is_array($fieldsToUpdate) && (sizeof($fieldsToUpdate) > 0)) {
+          $mustSave = FALSE;
+          foreach ($fieldsToUpdate as $field_key => $value) {
+            if ($value !== 0) {
+              $block->set($field_key, $fieldValues[$field_key]);
+              $mustSave = TRUE;
+            }
+          }
+          if ($mustSave) {
+            $block->save();
+          }
+        }
       }
     }
   }

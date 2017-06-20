@@ -52,6 +52,19 @@ class ModuleConfigurationForm extends ConfigFormBase {
       '#required'      => TRUE
     ];
 
+    $options = [
+      'field_last_price' => t('Last Price'),
+      'field_change' => t('Change'),
+    ];
+
+    $form['config_fieldset']['fields_to_update'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Fields to Update'),
+      '#title_display' => 'before', // before, after and invisible
+      '#options' => $options,
+      '#default_value' => ($config->get('fields_to_update') !== NULL) ? $config->get('fields_to_update') : [],
+    ];
+
     $form['reset_fieldset'] = [
       '#type'  => 'details',
       '#title' => t('Reset Block Updates Fields'),
@@ -100,6 +113,10 @@ class ModuleConfigurationForm extends ConfigFormBase {
     // for save form configurations
     $this->config('block_updates.settings')
       ->set('stock_api_url', $form_state->getValue('stock_api_url'))
+      ->save();
+
+    $this->config('block_updates.settings')
+      ->set('fields_to_update', $form_state->getValue('fields_to_update'))
       ->save();
   }
 
