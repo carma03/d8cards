@@ -21,7 +21,7 @@ class BlockAssets extends BlockBase {
   public function build() {
     return [
       '#type' => 'markup',
-      '#markup' => 'We are all familiar with the multiple ways of adding JS/CSS to a module or a theme to be available on select / all pages on D7. In this exercise we will check out how we could do the same on D8.',
+      '#markup' => '<p>We are all familiar with the multiple ways of adding JS/CSS to a module or a theme to be available on select / all pages on D7. In this exercise we will check out how we could do the same on D8.</p><p>Check how the custom blocks\'s title change color.</p>',
       '#attached' => [
         'library' => [
           'attaching_assets/custom_blocks',
