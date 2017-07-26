@@ -1,0 +1,11 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+function card_13_loggin_node_update(EntityInterface $node) {
+  \Drupal::logger('card_13_loggin')->notice('Node with title @title of type @type has been updated.',
+        array(
+            '@title' => $node->label(),
+            '@type' => $node->bundle(),
+      ));
+}

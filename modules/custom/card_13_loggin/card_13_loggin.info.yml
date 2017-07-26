@@ -1,0 +1,8 @@
+name: 'Card 13 - Loggin'
+type: module
+description: 'Provides functionality for add message to log after a node is updated.'
+package: Custom
+version: VERSION
+core: 8.x
+dependencies:
+  - node
