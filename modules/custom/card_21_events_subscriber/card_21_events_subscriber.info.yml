@@ -1,0 +1,7 @@
+name: 'Card 21: Events Subscriber'
+type: module
+description: 'Appends Access-Control-Allow-Origin to the response headers to allow CORS(Cross Origin Resource Sharing).'
+package: Custom
+version: VERSION
+core: 8.x
+dependencies:
