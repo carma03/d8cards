@@ -1,0 +1,6 @@
+#card_21_event_subscriber.services.yml
+services:
+  cors.allow_access_origin:
+    class: Drupal\card_21_event_subscriber\EventSubscriber\Card21EventSubscriber
+    tags:
+      - {name: event_subscriber}
